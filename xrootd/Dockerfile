@@ -1,19 +1,18 @@
 ARG OS=rockylinux/rockylinux:8
-ARG REPO=origin
-ARG ORG=xrootd
-ARG PROJ=xrootd
+ARG REMOTE=origin
+ARG REPO=https://github.com/xrootd/xrootd.git
 ARG BRANCH=master
 ARG XROOTD_GID=110000
 ARG XROOTD_UID=110000
 
 
 FROM $OS
+ARG REMOTE
 ARG REPO
-ARG ORG
-ARG PROJ
 ARG BRANCH
 ARG XROOTD_GID
 ARG XROOTD_UID
+ARG COMMIT
 
 ARG BUILD_DEPS="git gcc-c++ make cmake yasm libtool krb5-devel libuuid-devel libxml2-devel openssl-devel systemd-devel zlib-devel libcurl-devel fuse-devel json-c-devel readline-devel isa-l-devel libbsd-devel tinyxml-devel voms-devel scitokens-cpp-devel python3-devel libmacaroons-devel davix-devel cppunit-devel gtest-devel libcurl-devel"
 
@@ -45,13 +44,14 @@ RUN dnf --enablerepo=powertools install -y \
 ## These are required for building, and can be removed later.
 RUN dnf --enablerepo=powertools install -y $BUILD_DEPS
 
-RUN git clone "https://github.com/${ORG}/${PROJ}.git" /tmp/xrootd/src
+RUN git clone "${REPO}" /tmp/xrootd/src
 
-LABEL ext
+RUN dnf update -y
+LABEL git.commit=${COMMIT}
 RUN dnf update -y
 
-RUN git -C /tmp/xrootd/src fetch "${REPO}"
-RUN git -C /tmp/xrootd/src checkout "${BRANCH}"
+RUN git -C /tmp/xrootd/src fetch "${REMOTE}"
+RUN git -C /tmp/xrootd/src checkout "${COMMIT}"
 
 RUN cmake -S /tmp/xrootd/src -B /tmp/xrootd/build \
     -Wno-dev \
