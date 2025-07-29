@@ -33,7 +33,6 @@ IMAGE=$(PROJ)$(TAG)
 all::
 	docker build \
 	  --build-arg OS="$(OS)" \
-	  --build-arg BRANCH="$(BRANCH)" \
 	  --build-arg COMMIT="$(COMMIT)" \
 	  --build-arg REPO="$(REPO)" \
 	  -t "$(IMAGE)" .
