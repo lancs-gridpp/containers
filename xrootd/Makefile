@@ -24,7 +24,7 @@ BRANCH=master
 
 REPO=$(SITE)$(ORG)/$(PROJ).git
 
-VWORDS:=$(shell ./git-info.sh '$(REPO)' '$(ORG)' '$(BRANCH)')
+VWORDS:=$(shell ../git-info.sh '$(REPO)' '$(ORG)' '$(BRANCH)')
 TAG:=$(word 1,$(VWORDS))
 COMMIT:=$(word 2,$(VWORDS))
 
