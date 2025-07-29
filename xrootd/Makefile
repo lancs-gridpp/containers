@@ -9,6 +9,7 @@ MYABSPATH=$(foreach f,$1,$(if $(patsubst /%,,$f),$(MYCURDIR)$f,$f))
 
 -include $(call MYABSPATH,config.mk)
 
+DOCKER ?= docker
 CMP ?= cmp
 CP ?= cp
 
@@ -31,7 +32,7 @@ COMMIT:=$(word 2,$(VWORDS))
 IMAGE=$(PROJ)$(TAG)
 
 all::
-	docker build \
+	$(DOCKER) build \
 	  --build-arg OS="$(OS)" \
 	  --build-arg COMMIT="$(COMMIT)" \
 	  --build-arg REPO="$(REPO)" \
