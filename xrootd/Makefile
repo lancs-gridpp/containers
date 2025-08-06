@@ -21,8 +21,6 @@ BRANCH=master
 XROOTD_GID=110000
 XROOTD_UID=110000
 
-BRANCH=master
-
 REPO=$(SITE)$(ORG)/$(PROJ).git
 
 VWORDS:=$(shell ../git-info.sh '$(REPO)' '$(ORG)' '$(BRANCH)')
