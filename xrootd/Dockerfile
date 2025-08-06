@@ -44,12 +44,10 @@ RUN dnf --enablerepo=powertools install -y $BUILD_DEPS
 
 RUN git clone "${REPO}" /tmp/xrootd/src
 
-RUN dnf update -y
-LABEL git.commit=${COMMIT}
-RUN dnf update -y
 
 RUN git -C /tmp/xrootd/src fetch "${REMOTE}"
 RUN git -C /tmp/xrootd/src checkout "${COMMIT}"
+RUN dnf update -y
 
 RUN cmake -S /tmp/xrootd/src -B /tmp/xrootd/build \
     -Wno-dev \
