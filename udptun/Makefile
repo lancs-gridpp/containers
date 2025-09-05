@@ -14,6 +14,8 @@ CMP ?= cmp
 CP ?= cp
 
 OS=rockylinux/rockylinux:8
+SHORTOS=el8
+ARCH=$(shell arch)
 SITE=https://github.com/
 ORG=lancs-gridpp
 PROJ=udptun
@@ -35,4 +37,4 @@ udptun::
 	  --build-arg COMMIT="$(COMMIT)" \
 	  --build-arg REPO="$(REPO)" \
 	  -t "$(IMAGE)" \
-	  --output=. .
+	  --output=udptun.$(SHORTOS).$(ARCH) .

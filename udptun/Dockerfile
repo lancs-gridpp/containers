@@ -28,4 +28,4 @@ RUN make -C /tmp/binodeps all install
 RUN make PREFIX=/usr -C /tmp/udptun all install
 
 FROM scratch
-COPY --from=build /usr/bin/udptun /
+COPY --from=build /usr/bin/udptun /bin/udptun
